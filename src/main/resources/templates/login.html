@@ -5,11 +5,17 @@
     <title>Login</title>
 </head>
 <body>
+<div th:if="${param.error}">
+    Wrong Username!
+</div>
+<div th:if="${param.logout}">
+    You logged Out!
+</div>
 
-<form>
+<form th:action="@{/login}" method="post" >
 
     <input name="username" type="text" placeholder="Username"/>
-    <input name="Password" type="password" placeholder="Password"/>
+    <input name="password" type="password" placeholder="Password"/>
     <input type="submit" value="Login"/>
 
 
