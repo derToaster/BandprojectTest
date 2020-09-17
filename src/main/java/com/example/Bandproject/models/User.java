@@ -1,13 +1,22 @@
 package com.example.Bandproject.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Entity(name = "Bandmembers") // This tells Hibernate to make a table out of this class
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
+@Entity
+@Table(name = "users")// This tells Hibernate to make a table out of this class
 public class User {
     public User() {
+
     }
 
     @Id
@@ -18,11 +27,32 @@ public class User {
 
     private String lastName;
 
+    @Column(nullable = false, unique = true)
     private String username;
-
+    @Column(nullable = false)
     private String password;
+    private String role;
+
 
     private String instrument;
+    private boolean enabled;
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+//    @OneToMany(cascade = CascadeType.ALL)
+//    List<UserAuthorities> authorities = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -38,6 +68,13 @@ public class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getLastName() {
@@ -72,5 +109,15 @@ public class User {
         this.instrument = instrument;
     }
 
-
+//    public List<UserAuthorities> getAuthorities() {
+//        return authorities;
+//    }
+//
+//    public void setAuthorities(List<UserAuthorities> authorities) {
+//        this.authorities = authorities;
+//    }
+//
+//    public void addAuthorities(String authority){
+//        this.authorities.add(new UserAuthorities(this, authority));
+//    }
 }

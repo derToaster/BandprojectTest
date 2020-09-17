@@ -5,17 +5,60 @@
     <title>Registration</title>
 </head>
 <body>
-
+<div>
+    <label>Post Request</label>
 <form th:action="@{/registration}" method="post">
         <input name="firstName" type="text" placeholder="enter First Name"/>
         <input name="lastName" type="text" placeholder="enter Last Name"/>
         <input name="username" type="text" placeholder="enter Username"/>
         <input name="password" type="password" placeholder="enter your password">
-        <input name="instrument" type="text" placeholder="enter your instrument">
+    <input name="instrument" type="text" list="instruments" />
+    <datalist id="instruments">
+        <option>Guitar</option>
+        <option>Bass</option>
+        <option>Drums</option>
+        <option>Keys</option>
+    </datalist>
+        <input name="role" type="text" list="roles"/>
+        <datalist id="roles">
+            <option>ADMIN</option>
+            <option>USER</option>
+        </datalist>
 
         <input type="submit"  value="Submit" />
 
 </form>
+</div>
+<div>
+    <label>Get Request</label>
+    <form th:action="@{/registration/getUser}" method="get">
+        <input name="username" type="text" placeholder="enter the username">
+        <input type="submit"  value="Submit" />
+    </form>
+</div>
+<div>
+    <label>Put Request</label>
+    <form th:action="@{/registration}" method="put">
+        <input name="username" type="text" placeholder="enter the username">
+        <input name="firstName" type="text" placeholder="enter the new firstname">
+        <input type="submit"  value="Submit" />
+    </form>
+</div>
+<div>
+    <label>Delete Request</label>
+    <form  th:action="@{/registration}" th:method="delete">
+        <input name="username" type="text" placeholder="enter the username">
+
+        <input type="submit"  value="Submit" />
+    </form>
+</div>
+<div>
+    <label>Show All</label>
+    <form th:action="@{/registration/all}" method="get">
+        <input type="submit"  value="Submit" />
+    </form>
+</div>
+
 
 </body>
 </html>
